@@ -7,9 +7,9 @@ export type QuestionSubmitQueryRequest = {
     current?: number;
     language?: string;
     pageSize?: number;
-    questionId?: string;
+    questionId?: number;
     sortField?: string;
     sortOrder?: string;
     status?: number;
-    userId?: string;
+    userId?: number;
 };

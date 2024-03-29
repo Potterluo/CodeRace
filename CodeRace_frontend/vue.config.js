@@ -6,6 +6,7 @@ const AutoImport = require("unplugin-auto-import/webpack");
 const { ArcoResolver } = require("unplugin-vue-components/resolvers");
 module.exports = defineConfig({
   transpileDependencies: true,
+  lintOnSave: false,
   configureWebpack: {
     output: {
       filename: "[name].[contenthash:8].js",

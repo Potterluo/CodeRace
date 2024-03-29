@@ -44,7 +44,15 @@ const props = withDefaults(defineProps<Props>(), {
 const isShow = computed(() => props.visible);
 
 const codeExample = ref(
-  "\n```\nimport java.util.Scanner;\npublic class Main { \n    public static void main(String[] args) {\n\tScanner in = new Scanner(System.in);\n\twhile (in.hasNextInt()) { // 注意 while 处理多个 case\n\t  int a = in.nextInt();\n\t  int b = in.nextInt();\n\t  System.out.println(a + b);\n\t  }\n    }\n}\n```\n"
+  "```java\n"+
+  "public class Main {\n" +
+  "    public static void main(String[] args) {\n" +
+  "        int a = Integer.parseInt(args[0]);\n" +
+  "        int b = Integer.parseInt(args[1]);\n" +
+  "        System.out.println(a + b);\n" +
+  "    }\n" +
+  "}\n"+
+  "```"
 );
 </script>
 

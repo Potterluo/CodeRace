@@ -5,14 +5,21 @@
   </div>
   <div v-else>
     <a-dropdown trigger="hover">
-      <template v-if="loginUser.userAvatar">
-        <img class="avatar-image" alt="avatar" :src="loginUser.userAvatar" />
-      </template>
-      <template v-else>
-        <a-avatar>
-          <icon-user />
-        </a-avatar>
-      </template>
+      <a-row>
+        <a-col span="8">
+          <template v-if="loginUser.userAvatar">
+            <img class="avatar-image" alt="avatar" :src="loginUser.userAvatar" />
+          </template>
+          <template v-else>
+            <a-avatar :style="{ backgroundColor: '#3370ff' }">
+              <icon-user />
+            </a-avatar>
+          </template>
+        </a-col>
+        <a-col span="16" class="user-name">
+          <p style="text-align: center">{{ loginUser.userName }}</p>
+        </a-col>
+      </a-row>
       <template #content>
         <a-doption @click="handleAbout">
           <icon-home :style="{ marginRight: '6px' }" />个人中心
@@ -68,6 +75,12 @@ function controlLogin() {
   height: 2rem;
   border-radius: 50%;
   object-fit: cover;
+}
+.user-name {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  height: 2rem;
 }
 :deep(.arco-avatar) {
   width: 2rem;

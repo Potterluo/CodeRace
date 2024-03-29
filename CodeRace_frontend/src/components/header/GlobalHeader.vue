@@ -23,11 +23,8 @@
       </a-menu>
     </a-col>
     <a-col flex="50px"> <LightSetting /> </a-col>
-    <a-col flex="32px">
+    <a-col flex="100px">
       <userAvatar />
-    </a-col>
-    <a-col flex="60px" style="text-align: left; margin-left: 5px">
-      {{ user.loginUser.userName }}
     </a-col>
     <a-col flex="50px"></a-col>
   </a-row>
@@ -79,6 +76,7 @@ const doMenuClick = (key: string) => {
 <style scoped>
 #globalHeader {
   height: 70px;
+  width: 100vw;
   border-bottom: 1px solid #eee;
 }
 .title-bar {

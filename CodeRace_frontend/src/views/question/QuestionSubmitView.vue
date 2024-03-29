@@ -171,16 +171,20 @@ const getStatusColor = (message: any) => {
   switch (message) {
     case "Wrong Answer":
       return "#f53f3f";
+    case "Accepted":
+      return "#00b42a";
     default:
-      return "#86909c";
+      return "#ffb400";
   }
 };
 const getStatusText = (message: any) => {
   switch (message) {
     case "Wrong Answer":
       return "答案错误";
+    case "Accepted":
+      return "答案正确";
     default:
-      return "判题异常";
+      return "编译异常";
   }
 };
 

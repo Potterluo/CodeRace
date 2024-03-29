@@ -5,8 +5,7 @@
 
 export type LoginUserVO = {
     createTime?: string;
-    id?: string;
-    tags?: string;
+    id?: number;
     updateTime?: string;
     userAvatar?: string;
     userName?: string;

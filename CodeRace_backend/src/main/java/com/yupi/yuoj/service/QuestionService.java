@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yupi.yuoj.model.dto.question.QuestionQueryRequest;
 import com.yupi.yuoj.model.entity.Question;
-import com.yupi.yuoj.model.entity.Question;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yupi.yuoj.model.vo.QuestionVO;
 
@@ -52,5 +51,7 @@ public interface QuestionService extends IService<Question> {
      * @return
      */
     Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage, HttpServletRequest request);
-    
+
+    public Long getRandomQusetionId();
+
 }

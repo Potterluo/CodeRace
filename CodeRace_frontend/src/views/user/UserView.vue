@@ -84,6 +84,9 @@
               <a-form-item field="userName" label="昵称">
                 <a-input v-model="form.userName" placeholder="昵称（必填项）" />
               </a-form-item>
+              <a-form-item field="userAvatar" label="头像">
+                <a-textarea v-model="form.userAvatar" placeholder="请输入头像地址" />
+              </a-form-item>
               <a-form-item field="userProfile" label="个人介绍">
                 <a-textarea
                   v-model="form.userProfile"
@@ -122,6 +125,7 @@ console.log(loginUser);
 const form = ref({
   userName: loginUser.value.userName,
   userProfile: loginUser.value.userProfile,
+  userAvatar: loginUser.value.userAvatar,
 });
 
 // 上传头像功能

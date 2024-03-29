@@ -7,6 +7,7 @@ import com.yupi.yuoj.common.ErrorCode;
 import com.yupi.yuoj.constant.CommonConstant;
 import com.yupi.yuoj.exception.BusinessException;
 import com.yupi.yuoj.judge.JudgeService;
+import com.yupi.yuoj.mapper.QuestionMapper;
 import com.yupi.yuoj.mapper.QuestionSubmitMapper;
 import com.yupi.yuoj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.yupi.yuoj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
@@ -25,6 +26,7 @@ import com.yupi.yuoj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -55,48 +57,59 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Lazy
     private JudgeService judgeService;
 
+    @Autowired
+    private QuestionSubmitMapper questionSubmitMapper;
+
     /**
      * 提交题目
      *
-     * @param questionSubmitAddRequest 提交请求数据
-     * @param loginUser 当前登录用户
-     * @return 提交的题目ID
+     * @param questionSubmitAddRequest 包含提交请求的数据，如编程语言、题目ID和代码等
+     * @param loginUser 当前登录的用户信息
+     * @return 返回提交的题目的ID
      */
     @Override
     public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
-        // 校验编程语言是否合法
+        // 校验所选编程语言是否在系统支持的范围内
         String language = questionSubmitAddRequest.getLanguage();
         QuestionSubmitLanguageEnum languageEnum = QuestionSubmitLanguageEnum.getEnumByValue(language);
         if (languageEnum == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "编程语言错误");
         }
+
         long questionId = questionSubmitAddRequest.getQuestionId();
-        // 判断题目是否存在
+        // 根据题目ID查询题目信息，判断该题目是否存在
         Question question = questionService.getById(questionId);
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
         }
-        // 检查用户是否已提交过该题目
+
+        // 检查当前用户是否已经提交过该题目
         long userId = loginUser.getId();
         QuestionSubmit questionSubmit = new QuestionSubmit();
         questionSubmit.setUserId(userId);
         questionSubmit.setQuestionId(questionId);
         questionSubmit.setCode(questionSubmitAddRequest.getCode());
         questionSubmit.setLanguage(language);
-        // 设置初始状态
+
+        // 设置提交状态为等待判题，并初始化判题信息
         questionSubmit.setStatus(QuestionSubmitStatusEnum.WAITING.getValue());
         questionSubmit.setJudgeInfo("{}");
+
+        // 保存提交的题目信息到数据库
         boolean save = this.save(questionSubmit);
         if (!save){
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据插入失败");
         }
+
         Long questionSubmitId = questionSubmit.getId();
-        // 异步执行判题服务
+        // 异步调用判题服务，对提交的代码进行判题
         CompletableFuture.runAsync(() -> {
             judgeService.doJudge(questionSubmitId);
         });
+
         return questionSubmitId;
     }
+
 
     /**
      * 根据前端请求构建查询条件
@@ -178,6 +191,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
                 .collect(Collectors.toList());
         questionSubmitVOPage.setRecords(questionSubmitVOList); // 将转换后的视图对象列表设置到视图对象分页信息中
         return questionSubmitVOPage; // 返回视图对象分页信息
+    }
+
+    @Override
+    public QueryWrapper<QuestionSubmit> getCurrentUserQuestionSubmitQueryWrapper(Long questionId, User loginUser){
+        questionSubmitMapper.getSubmitByUserAndQuestion(loginUser.getId(), questionId);
+        return null;
     }
 
 }

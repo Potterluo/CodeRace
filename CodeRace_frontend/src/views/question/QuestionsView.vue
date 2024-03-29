@@ -2,7 +2,7 @@
   <div id="questionsView">
     <a-card class="questionList">
       <a-form :model="searchParams" layout="inline" class="searchParams">
-        <a-form-item
+<!--        <a-form-item
           field="statue"
           label="状态"
           style="width: 130px"
@@ -18,7 +18,7 @@
             <a-option :value="3">已解答</a-option>
             <a-option :value="2">尝试过</a-option>
           </a-select>
-        </a-form-item>
+        </a-form-item>-->
         <a-form-item
           field="extent"
           label="难度"
@@ -133,8 +133,8 @@
         <template #passRate="{ record }">
           {{ ((record.acceptedNum / record.submitNum) * 100).toFixed(1) }}%
         </template>
-        <template #statue="{ record }">
-<!--          <icon-minus-circle
+<!--        <template #statue="{ record }">
+          &lt;!&ndash;          <icon-minus-circle
             v-if="record.statue === 1"
             :style="{ fontSize: '24px', color: '#ffb800' }"
           />
@@ -145,13 +145,11 @@
           <icon-check-circle
             v-if="record.statue === 3"
             :style="{ fontSize: '24px', color: '#00af9b' }"
-          />-->
+          />&ndash;&gt;
           <a-tooltip content="未完成">
-          <icon-minus-circle
-            :style="{ fontSize: '24px', color: '#ffb800' }"
-          />
+            <icon-minus-circle :style="{ fontSize: '24px', color: '#ffb800' }" />
           </a-tooltip>
-        </template>
+        </template>-->
         <template #optional="{ record }">
           <a-button type="outline" @click="toQuestionPage(record)"
             >去做题</a-button
@@ -190,7 +188,7 @@ const inputVal = ref("");
 const searchParams = ref<QuestionQueryRequest>({
   pageSize: 10,
   current: 1,
-  statue: 0,
+  /*statue: 0,*/
   tags: [],
 });
 const title = ref<string>();
@@ -247,10 +245,10 @@ onMounted(() => {
 });
 
 const columns = [
-  {
+/*  {
     title: "状态",
     slotName: "statue",
-  },
+  },*/
   {
     title: "题目",
     dataIndex: "title",
@@ -296,22 +294,15 @@ const onPageChange = (page: number) => {
 };
 
 const handleRandom = async () => {
-  if (dataList.value.length > 0) {
-    const randomIndex = Math.floor(Math.random() * dataList.value.length);
-    const randomItem = dataList.value[randomIndex];
-    const { id } = randomItem;
-    router.push({ path: `/view/question/${id}` });
+  isLoading.value = true;
+  const res = await QuestionControllerService.getRandomQuestionIdUsingGet()
+  //console.log(res)
+  if (res !== null) {
+    router.push({ path: `/view/question/${res}` });
   } else {
-    console.log("数据列表为空，无法获取随机元素。");
+    Message.warning('暂时没有题目！');
   }
-  /*  isLoading.value = true;
-  const res = await QuestionControllerService.randomQuestionVoUsingGet(id);
-  if (res.message === "OK") {
-    router.push({ path: `/view/question/${res.data?.id}` });
-  } else {
-    Message.error(res.message as string);
-  }
-  isLoading.value = false;*/
+  isLoading.value = false;
 };
 
 const handleAdd = () => {

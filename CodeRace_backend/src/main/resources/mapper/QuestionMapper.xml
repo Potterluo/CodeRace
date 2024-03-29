@@ -29,4 +29,7 @@
         thumbNum,favourNum,userId,
         createTime,updateTime,isDelete
     </sql>
+    <select id="selectRandomQustion" resultType="com.yupi.yuoj.model.entity.Question">
+        SELECT * FROM question ORDER BY RAND() LIMIT 1
+    </select>
 </mapper>

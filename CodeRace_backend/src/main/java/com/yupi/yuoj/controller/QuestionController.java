@@ -336,6 +336,23 @@ public class QuestionController {
         // 返回脱敏信息
         return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
+    @PostMapping("/cur_question/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listCurUserSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest,
+                                                                         HttpServletRequest request, Long questionId) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        final User loginUser = userService.getLoginUser(request);
+        // 从数据库中查询原始的题目提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getCurrentUserQuestionSubmitQueryWrapper(questionId,loginUser));
+
+        // 返回脱敏信息
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
+    }
+    @GetMapping("/random")
+    public Long getRandomQuestionId(HttpServletRequest request) {
+        return questionService.getRandomQusetionId();
+    }
 
 
 

@@ -39,7 +39,7 @@
                           }}</span>
                         </a-descriptions-item>
                         <a-descriptions-item label="通过率:">
-                          <span class="recordTxt">{{ question.passRate }}</span>
+                          <span class="recordTxt">{{ ((question.acceptedNum / question.submitNum) * 100).toFixed(1) }}%</span>
                         </a-descriptions-item>
                       </a-descriptions>
                     </div>
@@ -91,28 +91,28 @@
                     >
                       <template #result="{ record }">
                         <a-tag
-                          v-if="record.judgeInfo.result === '成功'"
+                          v-if="record.judgeInfo.message === 'Accepted'"
                           color="green"
                           bordered
                         >
-                          {{ record.judgeInfo.result }}
+                          答案正确
                         </a-tag>
                         <a-tag
-                          v-else-if="record.judgeInfo.result === '等待中'"
-                          color="gray"
+                          v-else-if="record.judgeInfo.message === '等待中'"
+                          color="orange"
                           bordered
                         >
-                          {{ record.judgeInfo.result }}
+                          {{ record.judgeInfo.message }}
                         </a-tag>
                         <a-tag
-                          v-else-if="record.judgeInfo.result === '编译错误'"
-                          color="blue"
+                          v-else-if="record.judgeInfo.message === 'Wrong Answer'"
+                          color="red"
                           bordered
                         >
-                          {{ record.judgeInfo.result }}
+                          答案错误
                         </a-tag>
-                        <a-tag v-else color="red" bordered>
-                          {{ record.judgeInfo.result }}
+                        <a-tag v-else color="gray" bordered>
+                          判题异常
                         </a-tag>
                       </template>
                       <template #time="{ record }">
@@ -388,6 +388,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const id = ref<string>(props.id);
 
+
 const onCodeChange = (v: string) => {
   form.value.code = v;
 };
@@ -444,7 +445,7 @@ const loadSubmitData = async () => {
   const res = await QuestionControllerService.listQuestionSubmitByPageUsingPost(
     {
       ...searchParams.value,
-      questionId: id.value,
+      questionId: question.value?.id,
       userId: loginUser.value.id,
       sortField: "createTime",
       sortOrder: "descend",
@@ -453,6 +454,7 @@ const loadSubmitData = async () => {
   if (res.code === 0) {
     submitDataList.value = res.data.records;
     total.value = res.data.total;
+    //Message.info("id:"+question.value?.id)
   } else {
     Message.error("加载题目提交列表失败" + res.message);
   }

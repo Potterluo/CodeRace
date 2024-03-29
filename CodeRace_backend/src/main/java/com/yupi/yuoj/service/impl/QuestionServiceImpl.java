@@ -18,6 +18,7 @@ import com.yupi.yuoj.utils.SqlUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -37,6 +38,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
 
     @Resource
     private UserService userService;
+
+    @Autowired
+    private QuestionMapper questionMapper;
 
     /**
      * 校验题目是否合法
@@ -167,6 +171,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question>
         return questionVOPage;
     }
 
+    @Override
+    public Long getRandomQusetionId() {
+        return questionMapper.selectRandomQustion().getId();
+    }
 
 }
 
