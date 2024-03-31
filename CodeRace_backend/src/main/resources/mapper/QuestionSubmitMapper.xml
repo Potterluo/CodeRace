@@ -23,4 +23,7 @@
         userId,createTime,updateTime,
         isDelete
     </sql>
+    <select id="getSubmitByUserAndQuestion" resultType="com.yupi.yuoj.model.entity.QuestionSubmit">
+        select * from question_submit where userId = #{userId} and questionId = #{questionId}
+    </select>
 </mapper>
