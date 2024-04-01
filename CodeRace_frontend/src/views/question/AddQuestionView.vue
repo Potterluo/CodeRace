@@ -336,11 +336,11 @@ const doSubmit = async () => {
 
 <style scoped>
 #AddQuestionView {
-  max-width: 880px;
+  max-width: 900px;
   margin: auto;
 }
 #codeEditor {
-  height: 200px;
+  height: 500px;
   width: 100%;
 }
 .titleInput {

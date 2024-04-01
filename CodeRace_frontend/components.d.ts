@@ -53,6 +53,7 @@ declare module 'vue' {
     CodeEditor: typeof import('./src/components/codeEditor/CodeEditor.vue')['default']
     CodeTips: typeof import('./src/components/ViewQuestion/CodeTips.vue')['default']
     GlobalHeader: typeof import('./src/components/header/GlobalHeader.vue')['default']
+    IconEye: typeof import('@arco-design/web-vue/es/icon')['IconEye']
     IconMoon: typeof import('@arco-design/web-vue/es/icon')['IconMoon']
     IconSun: typeof import('@arco-design/web-vue/es/icon')['IconSun']
     JudgmentConfig: typeof import('./src/components/addQuestion/JudgmentConfig.vue')['default']

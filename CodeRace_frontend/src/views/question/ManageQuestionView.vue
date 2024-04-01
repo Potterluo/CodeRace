@@ -133,15 +133,15 @@ const columns = [
     dataIndex: "judgeConfig",
     children: [
       {
-        title: "时间限制",
+        title: "时间限制ms",
         dataIndex: "judgeConfig.timeLimit",
       },
       {
-        title: "内存限制",
+        title: "内存限制MB",
         dataIndex: "judgeConfig.memoryLimit",
       },
       {
-        title: "堆栈限制",
+        title: "堆栈限制KB",
         dataIndex: "judgeConfig.stackLimit",
       },
     ],

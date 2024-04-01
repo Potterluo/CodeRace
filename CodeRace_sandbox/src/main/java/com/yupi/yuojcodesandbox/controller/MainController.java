@@ -48,4 +48,20 @@ public class MainController {
         }
         return javaNativeCodeSandbox.executeCode(executeCodeRequest);
     }
+
+    @PostMapping("/executeCodeWithACM")
+    ExecuteCodeResponse executeCodeWithACM(@RequestBody ExecuteCodeRequest executeCodeRequest, HttpServletRequest request,
+                                    HttpServletResponse response) {
+        // 基本的认证
+        String authHeader = request.getHeader(AUTH_REQUEST_HEADER);
+        if (!AUTH_REQUEST_SECRET.equals(authHeader)) {
+            response.setStatus(403);
+            return null;
+        }
+        if (executeCodeRequest == null) {
+            throw new RuntimeException("请求参数为空");
+        }
+        /*return javaNativeCodeSandbox.executeCode(executeCodeRequest);*/
+        return null;
+    }
 }

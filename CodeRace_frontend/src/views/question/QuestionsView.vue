@@ -151,12 +151,25 @@
           </a-tooltip>
         </template>-->
         <template #optional="{ record }">
+          <a-tooltip content="偷偷看一眼">
+          <a-button type="text"  @click="previewQuestion(record)" >
+            <template #icon>
+              <icon-eye />
+            </template>
+          </a-button>
+          </a-tooltip>
           <a-button type="outline" @click="toQuestionPage(record)"
-            >去做题</a-button
+          >去做题</a-button
           >
         </template>
       </a-table>
     </a-card>
+    <a-modal v-model:visible="visible" @ok="handleOk" @cancel="handleCancel" fullscreen>
+      <template #title>
+        {{curTitle || ''}}
+      </template>
+      <MdViewer :value="curRecord || ''" />
+    </a-modal>
     <!-- 进度表 -->
     <!-- <a-card class="progress">当前进度</a-card> -->
   </div>
@@ -180,6 +193,7 @@ import {
 import { ref, onMounted, watch, watchEffect, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import MdViewer from "@/components/markdown/MdViewer.vue";
 const store = useStore();
 const tableRef = ref();
 const dataList = ref([]);
@@ -199,6 +213,26 @@ const isLoading = ref(false);
 
 const pageSize = computed(() => searchParams.value.pageSize);
 const current = computed(() => searchParams.value.current);
+const visible = ref(false);
+
+let curRecord = ref(null);
+let curTitle = ref(null);
+
+const previewQuestion = (record: any) => {
+  visible.value = true;
+  curRecord = record.content;
+  curTitle = record.title;
+};
+
+const handleOk = () => {
+  visible.value = false;
+  curRecord = ref(null);
+  curTitle = ref(null);
+};
+const handleCancel = () => {
+  visible.value = false;
+  curTitle = ref(null);
+}
 
 watch([pageSize, current], () => {
   loadData();
