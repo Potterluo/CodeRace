@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yupi.yuoj.mapper.QuestionSubmitMapper">
+<mapper namespace="com.keriko.coderace.mapper.QuestionSubmitMapper">
 
-    <resultMap id="BaseResultMap" type="com.yupi.yuoj.model.entity.QuestionSubmit">
+    <resultMap id="BaseResultMap" type="com.keriko.coderace.model.entity.QuestionSubmit">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="language" column="language" jdbcType="VARCHAR"/>
             <result property="code" column="code" jdbcType="VARCHAR"/>
@@ -23,7 +23,7 @@
         userId,createTime,updateTime,
         isDelete
     </sql>
-    <select id="getSubmitByUserAndQuestion" resultType="com.yupi.yuoj.model.entity.QuestionSubmit">
+    <select id="getSubmitByUserAndQuestion" resultType="com.keriko.coderace.model.entity.QuestionSubmit">
         select * from question_submit where userId = #{userId} and questionId = #{questionId}
     </select>
 </mapper>

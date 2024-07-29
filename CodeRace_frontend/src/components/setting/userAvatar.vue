@@ -16,8 +16,9 @@
             </a-avatar>
           </template>
         </a-col>
-        <a-col span="16" class="user-name">
-          <p style="text-align: center">{{ loginUser.userName }}</p>
+        <a-col  span="16" class="user-name" >
+          <p v-if="theme === 'light'" style="color: #1e1e1e">{{ loginUser.userName }}</p>
+          <p v-else style="color: #fff">{{ loginUser.userName }}</p>
         </a-col>
       </a-row>
       <template #content>
@@ -39,6 +40,7 @@ import { IconUser, IconHome, IconExport } from "@arco-design/web-vue/es/icon";
 import { LoginUserVO, UserControllerService } from "../../../generated";
 import AuthModal from "@/components/Modals/AuthModal.vue";
 import { useRouter } from "vue-router";
+const theme = computed(() => store.state.theme.theme);
 const router = useRouter();
 
 const store = useStore();

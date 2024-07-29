@@ -1,7 +1,13 @@
 import { RouteRecordRaw } from "vue-router";
 import QuestionLayout from "@/layouts/QuestionLayout.vue";
 import BasicLayout from "@/layouts/BasicLayout.vue";
-import { IconList, IconBookmark, IconBook } from "@arco-design/web-vue/es/icon";
+import {
+  IconList,
+  IconBookmark,
+  IconBook,
+  IconBarChart,
+  IconSend
+} from "@arco-design/web-vue/es/icon";
 import ACCESS_ENUM from "@/access/accessEnum";
 
 export const routes: Array<RouteRecordRaw> = [
@@ -63,6 +69,30 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       access: ACCESS_ENUM.ADMIN,
       icon: IconBook,
+      layout: BasicLayout,
+    },
+  },
+  {
+    path: "/rank",
+    name: "排行榜",
+    component: () =>
+      import(
+        /* webpackChunkName: "manageQuestionView" */ "../views/rank/rank.vue"
+        ),
+    meta: {
+      icon: IconBarChart,
+      layout: BasicLayout,
+    },
+  },
+  {
+    path: "/info/doc",
+    name: "项目说明",
+    component: () =>
+      import(
+        /* webpackChunkName: "manageQuestionView" */ "../views/doc/doc.vue"
+        ),
+    meta: {
+      icon: IconSend,
       layout: BasicLayout,
     },
   },
