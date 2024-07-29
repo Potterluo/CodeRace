@@ -942,7 +942,7 @@
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer">
-        <p class="footer-info">© 2024 keriko</p>
+        <p class="footer-info">© 2024 keriko &nbsp;&nbsp;&nbsp;<a href="http://beian.miit.gov.cn/"  target="_blank" class="footer-info">京ICP备2024043060号-2</a></p>
       </a-layout-footer>
     </a-layout>
   </div>
@@ -1004,6 +1004,7 @@ import GlobalHeader from "../components/header/GlobalHeader.vue";
   font-weight: 400;
   line-height: 23px;
   letter-spacing: 0px;
+  text-decoration: none;
 }
 
 :deep(.arco-table-th) {

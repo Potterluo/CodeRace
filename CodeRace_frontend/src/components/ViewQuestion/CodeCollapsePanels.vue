@@ -62,6 +62,9 @@
               </a-spin>
             </a-scrollbar>
           </a-tab-pane>
+          <a-tab-pane key="3" title="AICoder">
+            <MdViewer :value=AIAnswer></MdViewer>
+          </a-tab-pane>
         </a-tabs>
       </div>
       <div class="title">
@@ -92,7 +95,11 @@
 <script setup lang="ts">
 import { IconPlayArrow, IconUp } from "@arco-design/web-vue/es/icon";
 import { ref, computed, watch, toRefs } from "vue";
-
+import MdViewer from "@/components/markdown/MdViewer.vue";
+const AIAnswer = "## AI帮个忙\n" +
+  "```java\n" +
+  "int c = 2333;\n" +
+  "```\n"
 interface ResultData {
   result: string;
   message: string;

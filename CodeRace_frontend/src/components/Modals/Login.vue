@@ -56,20 +56,41 @@ const store = useStore();
  * @param data
  */
 const handleSubmit = async () => {
-  const res = await UserControllerService.userLoginUsingPost(form);
-  // 登录成功，跳转到主页
-  if (res.code === 0) {
-    message.success("登录成功！");
-    await store.dispatch("user/getLoginUser");
-    router.push({
-      path: "/",
-      replace: true,
-    });
-    window.location.reload();
-  } else {
-    message.error("登录失败：" + res.message);
+  try {
+    // Send login request with form data
+    const res = await UserControllerService.userLoginUsingPost(form);
+
+    console.log("Login response:", res);
+
+    // If login is successful
+    if (res.code === 0) {
+      message.success("登录成功！");
+      console.log("User data:", res.data);
+
+      // Store token or session data in localStorage
+      localStorage.setItem('token', res.data.token);
+
+      // Dispatch action to get logged-in user data
+      //const user = await store.dispatch("user/getLoginUser");
+      const  user = await UserControllerService.getLoginUserUsingGet();
+      console.log("Logged-in user:", user);
+
+      // Redirect to the home page and reload the window
+      router.push({
+        path: "/",
+        replace: true,
+      });
+      window.location.reload();
+    } else {
+      // If login fails, display error message
+      message.error("登录失败：" + res.message);
+    }
+  } catch (error) {
+    // Handle any unexpected errors
+    message.error("登录过程中出现错误：" + error);
   }
 };
+
 
 const toggleSignUp = () => {
   store.dispatch("auth/toggleSignUp");
