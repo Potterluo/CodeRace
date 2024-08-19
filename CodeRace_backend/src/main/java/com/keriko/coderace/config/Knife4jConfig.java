@@ -27,12 +27,12 @@ public class Knife4jConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
                         .title("接口文档")
-                        .description("yuoj-backend")
+                        .description("CodeRace-backend")
                         .version("1.0")
                         .build())
                 .select()
                 // 指定 Controller 扫描包路径
-                .apis(RequestHandlerSelectors.basePackage("com.yupi.yuoj.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.keriko.coderace.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

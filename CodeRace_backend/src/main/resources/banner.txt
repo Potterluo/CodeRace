@@ -79,6 +79,6 @@ ${AnsiColor.CYAN}
  *       ┗┻┛　┗┻┛
  */
 
-${AnsiColor.BRIGHT_BLUE}
+
  :: Spring Boot :: (v${spring-boot.version})
  :: http://localhost:${server.port}
