@@ -93,3 +93,7 @@ cos:
 # 代码沙箱配置
 codesandbox:
   type: remote
+# 大模型相关配置
+ai:
+  type: zhiPu
+  zhiPuApiKey: 8343d14c70f68c02255d20bb6e780741.KsbohpAwlmOguhFU
