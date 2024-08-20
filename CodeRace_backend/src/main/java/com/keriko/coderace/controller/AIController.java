@@ -1,6 +1,5 @@
 package com.keriko.coderace.controller;
 
-
 import com.keriko.coderace.common.BaseResponse;
 import com.keriko.coderace.common.ErrorCode;
 import com.keriko.coderace.common.ResultUtils;
@@ -13,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/AiChat")
@@ -21,6 +19,7 @@ import javax.annotation.Resource;
 public class AIController {
     @Autowired
     private AiService aiService;
+/*
     @GetMapping("/chat")
     public String doChat(String message) {
         return aiService.doChat(message);
@@ -34,6 +33,7 @@ public class AIController {
     public String answerAnalysis(String content, String answer) {
         return aiService.answerAnalysis(content, answer);
     }
+*/
 
     @PostMapping("/analysis")
     /**
