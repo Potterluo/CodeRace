@@ -1,4 +1,4 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
@@ -43,6 +43,7 @@ export type { PostQueryRequest } from './models/PostQueryRequest';
 export type { PostThumbAddRequest } from './models/PostThumbAddRequest';
 export type { PostUpdateRequest } from './models/PostUpdateRequest';
 export type { PostVO } from './models/PostVO';
+export type { ProblemAnalysisRequest } from './models/ProblemAnalysisRequest';
 export type { Question } from './models/Question';
 export type { QuestionAddRequest } from './models/QuestionAddRequest';
 export type { QuestionEditRequest } from './models/QuestionEditRequest';
@@ -61,6 +62,7 @@ export type { UserUpdateMyRequest } from './models/UserUpdateMyRequest';
 export type { UserUpdateRequest } from './models/UserUpdateRequest';
 export type { UserVO } from './models/UserVO';
 
+export { AiControllerService } from './services/AiControllerService';
 export { FileControllerService } from './services/FileControllerService';
 export { PostControllerService } from './services/PostControllerService';
 export { PostFavourControllerService } from './services/PostFavourControllerService';

@@ -63,7 +63,11 @@
             </a-scrollbar>
           </a-tab-pane>
           <a-tab-pane key="3" title="AICoder">
-            <MdViewer :value=AIAnswer></MdViewer>
+            <a-scrollbar
+              :style="{ height: containerHeight + 'px', overflow: 'auto' }"
+            >
+            <MdViewer :value = AIAnswer style="overflow: auto"></MdViewer>
+            </a-scrollbar>
           </a-tab-pane>
         </a-tabs>
       </div>
@@ -77,6 +81,12 @@
           </span>
         </a-button>
         <div>
+          <a-button size="mini" class="btn-run" @click="getAIAnswer" >
+            <icon-robot
+              :style="{ marginRight: '2px', fontSize: '10px' }"
+            />
+            问下小码
+          </a-button>
           <a-button size="mini" @click="doRun(runContent)" class="btn-run">
             <icon-play-arrow
               :style="{ marginRight: '2px', fontSize: '10px' }"
@@ -93,13 +103,12 @@
 </template>
 
 <script setup lang="ts">
+//TODO AI分析部分不显示滑动条。scoll属性强制加滑动条也无法显示。
 import { IconPlayArrow, IconUp } from "@arco-design/web-vue/es/icon";
-import { ref, computed, watch, toRefs } from "vue";
+import { computed, ref, toRefs, watch } from "vue";
 import MdViewer from "@/components/markdown/MdViewer.vue";
-const AIAnswer = "## AI帮个忙\n" +
-  "```java\n" +
-  "int c = 2333;\n" +
-  "```\n"
+
+const AIAnswer = ref("题目不会做？点击下方按钮问问小码吧。或是解答完后让小码看看你做的对不对。");
 interface ResultData {
   result: string;
   message: string;
@@ -120,6 +129,7 @@ interface Props {
   resizeBoxHeight: number;
   maxResizeBoxHeight: number;
   doSubmit: () => void;
+  doAnalysis: () => string;
   doRun: (runContent: RunContent) => void;
 }
 
@@ -185,6 +195,15 @@ watch(
 defineExpose({
   isShow,
 });
+
+//获取AI回答
+const getAIAnswer = async () => {
+  runContent.value.activeKey = "3";
+  AIAnswer.value = "小码正在努力思考中...";
+  //todo 限流
+  AIAnswer.value = await props.doAnalysis();
+  //message.info(res)
+};
 </script>
 
 <style scoped>

@@ -1,11 +1,9 @@
-/* generated using openapi-typescript-codegen -- do no edit */
+/* generated using openapi-typescript-codegen -- do not edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { JudgeConfig } from './JudgeConfig';
 import type { UserVO } from './UserVO';
-
 export type QuestionVO = {
     acceptedNum?: number;
     content?: string;
@@ -21,3 +19,4 @@ export type QuestionVO = {
     userId?: number;
     userVO?: UserVO;
 };
+

@@ -55,6 +55,7 @@ declare module 'vue' {
     GlobalHeader: typeof import('./src/components/header/GlobalHeader.vue')['default']
     IconEye: typeof import('@arco-design/web-vue/es/icon')['IconEye']
     IconMoon: typeof import('@arco-design/web-vue/es/icon')['IconMoon']
+    IconRobot: typeof import('@arco-design/web-vue/es/icon')['IconRobot']
     IconSun: typeof import('@arco-design/web-vue/es/icon')['IconSun']
     JudgmentConfig: typeof import('./src/components/addQuestion/JudgmentConfig.vue')['default']
     LightSetting: typeof import('./src/components/setting/LightSetting.vue')['default']

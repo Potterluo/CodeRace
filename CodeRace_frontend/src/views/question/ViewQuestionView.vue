@@ -218,6 +218,7 @@
             :do-submit="doSubmit"
             :waitting="waitting"
             :do-run="doRun"
+            :doAnalysis="doAnalysis"
             :resize-box-height="resizeBoxheight"
             :max-resize-box-height="maxHeight"
             ref="controlRef"
@@ -249,7 +250,7 @@ import {
   QuestionSubmitAddRequest,
   QuestionSubmitQueryRequest,
   LoginUserVO,
-  QuestionSubmitVO,
+  QuestionSubmitVO, AiControllerService
 } from "../../../generated";
 import CodeTips from "@/components/ViewQuestion/CodeTips.vue";
 import CodeCollapsePanels from "@/components/ViewQuestion/CodeCollapsePanels.vue";
@@ -258,6 +259,7 @@ import CodeEditor from "@/components/codeEditor/CodeEditor.vue";
 // import ProblemSolve from "@/components/ViewQuestion/ProblemSolve.vue";
 import MdViewer from "@/components/markdown/MdViewer.vue";
 import { ref, onMounted, watchEffect, watch, computed } from "vue";
+import message from "@arco-design/web-vue/es/message"
 
 const question = ref<QuestionVO>();
 const codeLanguages = ref(["java"]);
@@ -535,6 +537,19 @@ const doRun = async (runContent: RunContent) => {
   waitting.value = false;
 };
 
+const doAnalysis = async () => {
+  if (!question.value?.id) {
+    return;
+  }
+  const content = question.value?.content;
+  const answer = form.value.code;
+  const res = await AiControllerService.analysisUsingPost({content, answer})
+  if (res.code === 0) {
+    return res.data;
+  } else {
+    Message.error("运行失败: " + res.message);
+  }
+}
 /**
  * 页面加载时，请求数据
  */

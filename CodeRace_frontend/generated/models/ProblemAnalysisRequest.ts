@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PostEditRequest = {
+export type ProblemAnalysisRequest = {
+    answer?: string;
     content?: string;
-    id?: number;
-    tags?: Array<string>;
-    title?: string;
 };
 
