@@ -72,18 +72,18 @@ export const routes: Array<RouteRecordRaw> = [
       layout: BasicLayout,
     },
   },
-  {
-    path: "/rank",
-    name: "排行榜",
-    component: () =>
-      import(
-        /* webpackChunkName: "manageQuestionView" */ "../views/rank/rank.vue"
-        ),
-    meta: {
-      icon: IconBarChart,
-      layout: BasicLayout,
-    },
-  },
+  // {
+  //   path: "/rank",
+  //   name: "排行榜",
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "manageQuestionView" */ "../views/rank/rank.vue"
+  //       ),
+  //   meta: {
+  //     icon: IconBarChart,
+  //     layout: BasicLayout,
+  //   },
+  // },
   {
     path: "/info/doc",
     name: "项目说明",

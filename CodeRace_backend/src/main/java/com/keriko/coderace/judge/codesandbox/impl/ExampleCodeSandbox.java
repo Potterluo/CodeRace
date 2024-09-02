@@ -25,6 +25,7 @@ public class ExampleCodeSandbox implements CodeSandbox {
      */
     @Override
     public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
+        log.info("示例代码沙箱开始执行代码");
         // 从请求中获取输入列表
         List<String> inputList = executeCodeRequest.getInputList();
 

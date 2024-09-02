@@ -23,7 +23,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/yuoj
     username: root
-    password: 123456
+    password: xxxxxxx
   # Redis 配置
   # todo 需替换配置，然后取消注释
   redis:
@@ -67,4 +67,4 @@ codesandbox:
 # 大模型相关配置
 ai:
   type: zhiPu
-  zhiPuApiKey: sk-*******************************
+  zhiPuApiKey: 8343d14c70f68c02255d20bb6e780741.KsbohpAwlmOguhFU
