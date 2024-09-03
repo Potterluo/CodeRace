@@ -16,6 +16,9 @@ public enum ErrorCode {
     FORBIDDEN_ERROR(40300, "禁止访问"),
     SYSTEM_ERROR(50000, "系统内部异常"),
     OPERATION_ERROR(50001, "操作失败"),
+    TIMEOUT_ERROR(50002, "请求超时"),
+    TOO_MANY_REQUEST(50003, "请求过于频繁"),
+    AI_SERVICE_BUSY(50004, "AI调用错误"),
     API_REQUEST_ERROR(50010, "接口调用失败");
 
     /**

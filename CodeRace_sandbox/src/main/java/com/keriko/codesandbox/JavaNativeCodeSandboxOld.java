@@ -9,6 +9,7 @@ import com.keriko.codesandbox.model.JudgeInfo;
 import com.keriko.codesandbox.utils.ProcessUtils;
 import com.keriko.codesandbox.model.ExecuteCodeRequest;
 import com.keriko.codesandbox.model.ExecuteCodeResponse;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 public class JavaNativeCodeSandboxOld implements CodeSandbox {
 
     private static final String GLOBAL_CODE_DIR_NAME = "tmpCode";
@@ -93,7 +95,7 @@ public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
     try {
         Process compileProcess = Runtime.getRuntime().exec(compileCmd);
         ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(compileProcess, "编译");
-        System.out.println(executeMessage);
+        log.info(executeMessage.toString());
     } catch (Exception e) {
         return getErrorResponse(e);
     }
@@ -108,14 +110,14 @@ public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
             new Thread(() -> {
                 try {
                     Thread.sleep(TIME_OUT);
-                    System.out.println("超时了，中断");
+                    log.warn("超时了，中断");
                     runProcess.destroy();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }).start();
             ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(runProcess, "运行");
-            System.out.println(executeMessage);
+            log.info(executeMessage.toString());
             executeMessageList.add(executeMessage);
         } catch (Exception e) {
             return getErrorResponse(e);
@@ -155,7 +157,7 @@ public ExecuteCodeResponse executeCode(ExecuteCodeRequest executeCodeRequest) {
     // 5. 清理编译生成的文件和代码文件
     if (userCodeFile.getParentFile() != null) {
         boolean del = FileUtil.del(userCodeParentPath);
-        System.out.println("删除" + (del ? "成功" : "失败"));
+        log.info("删除" + (del ? "成功" : "失败"));
     }
     return executeCodeResponse;
 }

@@ -194,7 +194,7 @@
                     @change="changePatterns"
                   >
                     <a-radio value="1" :default-checked="true">ACM模式</a-radio>
-                    <a-radio value="3" disabled>核心代码模式</a-radio>
+                    <a-radio value="3" >核心代码模式</a-radio>
                   </a-radio-group>
                 </template>
               </a-dropdown>
@@ -262,7 +262,7 @@ import { ref, onMounted, watchEffect, watch, computed } from "vue";
 import message from "@arco-design/web-vue/es/message"
 
 const question = ref<QuestionVO>();
-const codeLanguages = ref(["java"]);
+const codeLanguages = ref(["java", "cpp", "python", "golang"]);
 const resizeBoxWidth = ref(600);
 const resizeBoxheight = ref(55);
 const codeWidth = ref(0);

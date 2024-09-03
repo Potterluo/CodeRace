@@ -8,7 +8,7 @@
       </template>
       <div>
         <div class="desc-txt">1. 核心代码模式处理</div>
-        <div class="desc-txt">不需要处理任何输入输出，直接返回值即可。</div>
+        <div class="desc-txt">不需要关心输入问题， 按照题目要求打印输出结果即可。</div>
         <div class="desc-txt">2. ACM 模式</div>
         <div class="desc-txt">
           你的代码需要处理输入输出，请使用如下样例代码读取输入和打印输出：

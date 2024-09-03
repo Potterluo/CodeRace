@@ -69,7 +69,7 @@ public class AIController {
             res = aiService.answerAnalysis(problemAnalysisRequest.getContent(), problemAnalysisRequest.getAnswer());
             // 校验分析结果是否为空
         }
-        ThrowUtils.throwIf(StringUtils.isBlank(res), ErrorCode.OPERATION_ERROR);
+        ThrowUtils.throwIf(StringUtils.isBlank(res), ErrorCode.AI_SERVICE_BUSY);
         return ResultUtils.success(res);
     }
 

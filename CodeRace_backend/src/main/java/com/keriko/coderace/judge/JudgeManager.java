@@ -1,10 +1,7 @@
 package com.keriko.coderace.judge;
 
 import com.keriko.coderace.judge.codesandbox.model.JudgeInfo;
-import com.keriko.coderace.judge.strategy.DefaultJudgeStrategy;
-import com.keriko.coderace.judge.strategy.JavaLanguageJudgeStrategy;
-import com.keriko.coderace.judge.strategy.JudgeContext;
-import com.keriko.coderace.judge.strategy.JudgeStrategy;
+import com.keriko.coderace.judge.strategy.*;
 import com.keriko.coderace.model.entity.QuestionSubmit;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +23,12 @@ public class JudgeManager {
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
         if ("java".equals(language)) {
             judgeStrategy = new JavaLanguageJudgeStrategy();
+        } else if ("cpp".equals(language)) {
+            judgeStrategy = new CppLanguageJudgeStrategy();
+        } else if ("golang".equals(language)) {
+            judgeStrategy = new GolangLanguageJudgeStrategy();
+        } else if ("python".equals(language)) {
+            judgeStrategy = new PythonLanguageJudgeStrategy();
         }
         return judgeStrategy.doJudge(judgeContext);
     }
